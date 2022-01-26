@@ -4,7 +4,7 @@
   "port":5432,
   "username":"postgres",
   "password":"docker",
-  "database":"apivendas",
+  "database":"netflix",
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
