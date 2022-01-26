@@ -10,6 +10,17 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "no-console": 2
+    "indent": [
+      "error",
+      2
+    ],
+    "quotes": [
+        "error",
+        "double"
+    ],
+    "semi": [
+        "error",
+        "always"
+    ]
   }
 }
