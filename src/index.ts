@@ -1,3 +1,8 @@
+import * as dotenv from "dotenv";
+dotenv.config({
+  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
+});
+
 import express from "express";
 import cors from "cors";
 import "reflect-metadata";
@@ -11,6 +16,6 @@ app.use(express.urlencoded());
 import generalRoutes from "./routes/generalRoutes";
 generalRoutes(app);
 
-app.listen(3000, ()=>{
-  console.log("listening on port 3000");
+app.listen(process.env.PORT, () => {
+  console.log(`listening on port ${process.env.PORT}`);
 });

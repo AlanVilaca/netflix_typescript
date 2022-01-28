@@ -29,6 +29,9 @@ export default class CreateSession {
       return new Error("Email or password are incorrect");
     }
 
+    if (!authConfig.jwt.secret)
+      return new Error("Server Error");
+
     const token = jwt.sign({id: user.id}, authConfig.jwt.secret, {
       expiresIn: authConfig.jwt.expiresIn
     });
