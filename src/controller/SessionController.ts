@@ -9,7 +9,7 @@ export default class SessionController {
 
     const result = await service.execute({email, password});
     if (result instanceof Error) {
-      return res.status(400).json(result.message);
+      return res.status(400).json({err: result.message});
     }
 
     return res.json(result);
