@@ -6,6 +6,7 @@ export default class SessionController {
     const {email, password} = req.body;
 
     const service = new CreateSession();
+
     const result = await service.execute({email, password});
     if (result instanceof Error) {
       return res.status(400).json(result.message);

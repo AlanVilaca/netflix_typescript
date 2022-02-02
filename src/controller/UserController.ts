@@ -11,6 +11,7 @@ export default class User {
     if (!validatePassword(password)) return res.status(400).json("Password weak");
 
     const service = new CreateUser();
+
     const result = await service.execute({name, email, password});
     if (result instanceof Error) {
       return res.status(400).json(result.message);
