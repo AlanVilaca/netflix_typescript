@@ -11,7 +11,7 @@ export function validatePassword(password: string): boolean {
   return true;
 }
 
-export async function hashPassword(password: string) : Promise<string> {
+export async function hashPassword(password: string): Promise<string> {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
   return hash;
