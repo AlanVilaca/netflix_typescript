@@ -1,8 +1,8 @@
-import { getRepository } from "typeorm";
 import User from "../../entities/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import authConfig from "../../config/auth";
+import IUserRepository from "../../repositories/IUserRepository";
 
 interface IUser {
   email: string;
@@ -15,10 +15,11 @@ interface IResponse {
 }
 
 export default class CreateSession {
-  async execute({email, password}: IUser): Promise<IResponse | Error> {
-    const repo = getRepository(User);
+  constructor(private usersRepository: IUserRepository) {}
 
-    const user = await repo.findOne({email});
+  async execute({email, password}: IUser): Promise<IResponse | Error> {
+
+    const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       return new Error("Email or password are incorrect");
