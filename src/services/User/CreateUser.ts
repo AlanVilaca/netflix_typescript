@@ -1,31 +1,25 @@
-import { getRepository } from "typeorm";
 import User from "../../entities/User";
 import { hashPassword } from "../../helper/user.helper";
-
-export interface IUser {
-  name: string;
-  email: string;
-  password: string;
-}
+import { ICreateUser } from "../../interface/user/ICreateUser";
+import IUserRepository from "../../repositories/IUserRepository";
+import UserRepository from "../../repositories/UserRepository";
 
 export default class CreateUser {
-  async execute({name, email, password}: IUser): Promise<User | Error> {
+  constructor(private usersRepository: IUserRepository = new UserRepository()) {}
 
-    const repo = getRepository(User);
+  async execute({name, email, password}: ICreateUser): Promise<User | Error> {
 
-    if (await repo.findOne({email})){
+    if (await this.usersRepository.findByEmail(email)){
       return new Error("Email already exists");
     }
 
     password = await hashPassword(password);
 
-    const user = repo.create({
+    const user = await this.usersRepository.create({
       name,
       email,
       password
     });
-
-    await repo.save(user);
 
     return user;
   }
