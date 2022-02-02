@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import authConfig from "../../config/auth";
 import IUserRepository from "../../repositories/IUserRepository";
+import UserRepository from "../../repositories/UserRepository";
 
 interface IUser {
   email: string;
@@ -15,7 +16,7 @@ interface IResponse {
 }
 
 export default class CreateSession {
-  constructor(private usersRepository: IUserRepository) {}
+  constructor(private usersRepository: IUserRepository = new UserRepository()) {}
 
   async execute({email, password}: IUser): Promise<IResponse | Error> {
 
