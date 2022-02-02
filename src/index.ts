@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 import generalRoutes from "./routes/generalRoutes";
 generalRoutes(app);
