@@ -1,14 +1,19 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import {MigrationInterface, QueryRunner, TableColumn} from "typeorm";
 
 export class AddActiveAccountToUser1643889404916 implements MigrationInterface {
   name = "AddActiveAccountToUser1643889404916";
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query("ALTER TABLE 'users' ADD COLUMN 'activeAccount' boolean NOT NULL");
+    await queryRunner.addColumn("users", new TableColumn({
+      name: "activeAccount",
+      type: "boolean",
+      isNullable: false,
+      default: true
+    }));
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query("ALTER TABLE 'users' DROP COLUMN 'activeAccount'");
+    await queryRunner.dropColumn("users", "activeAccount");
   }
 
 }
