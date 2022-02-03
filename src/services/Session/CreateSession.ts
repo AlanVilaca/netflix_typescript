@@ -1,7 +1,7 @@
 import User from "../../entities/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import authConfig from "../../config/auth";
+import authConfig from "../../config/authConfig";
 import IUserRepository from "../../repositories/IUserRepository";
 import UserRepository from "../../repositories/UserRepository";
 
@@ -34,7 +34,7 @@ export default class CreateSession {
     if (!authConfig.jwt.secret)
       return new Error("Server Error");
 
-    const token = jwt.sign({id: user.id}, authConfig.jwt.secret, {
+    const token = jwt.sign({ id: user.id }, authConfig.jwt.secret, {
       expiresIn: authConfig.jwt.expiresIn
     });
 
