@@ -15,6 +15,9 @@ export default class User {
   @Column()
   public password: string;
 
+  @Column()
+  public activeAccount: boolean;
+
   @CreateDateColumn()
   public createdAt: Date;
 
