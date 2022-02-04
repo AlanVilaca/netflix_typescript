@@ -1,14 +1,15 @@
+import AppError from "../../errors/AppError";
 import IUserRepository from "../../repositories/IUserRepository";
 import UserRepository from "../../repositories/UserRepository";
 
 export default class UnActiveAccount {
   constructor(private usersRepository: IUserRepository = new UserRepository()) {}
 
-  async execute(id: string): Promise<void| Error> {
+  async execute(id: string): Promise<void> {
 
     const user = await this.usersRepository.findById(id);
     if (!user){
-      return new Error("User not found");
+      throw new AppError("User not found");
     }
 
     user.activeAccount = false;

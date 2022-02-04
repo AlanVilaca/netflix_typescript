@@ -1,9 +1,10 @@
 import User from "../../entities/User";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import authConfig from "../../config/authConfig";
 import IUserRepository from "../../repositories/IUserRepository";
 import UserRepository from "../../repositories/UserRepository";
+import AppError from "../../errors/AppError";
 
 interface IUser {
   email: string;
@@ -18,23 +19,20 @@ interface IResponse {
 export default class CreateSession {
   constructor(private usersRepository: IUserRepository = new UserRepository()) {}
 
-  async execute({email, password}: IUser): Promise<IResponse | Error> {
+  async execute({ email, password }: IUser): Promise<IResponse> {
 
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      return new Error("Email or password are incorrect");
+      throw new AppError("Incorrect email/password combination.", 401);
     }
 
     const passwordConfirmed = await bcrypt.compare(password, user.password);
     if (!passwordConfirmed) {
-      return new Error("Email or password are incorrect");
+      throw new AppError("Incorrect email/password combination.", 401);
     }
 
-    if (!authConfig.jwt.secret)
-      return new Error("Server Error");
-
-    const token = jwt.sign({ id: user.id }, authConfig.jwt.secret, {
+    const token = jwt.sign({ id: user.id }, authConfig.jwt.secret as Secret, {
       expiresIn: authConfig.jwt.expiresIn
     });
 
