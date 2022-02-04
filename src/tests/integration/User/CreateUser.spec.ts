@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import FakeUserDatabase from "../../FakeDatabase";
 import CreateUser from "../../../services/User/CreateUser";
+import AppError from "../../../errors/AppError";
 
 let fakeUserRepository: FakeUserDatabase;
 let createUser: CreateUser;
@@ -30,12 +31,12 @@ describe("Create User", () => {
       password: "JohnMarston2018"
     });
 
-    const response = await createUser.execute({
-      name: "John Marston",
-      email: "john.marston@gmail.com",
-      password: "JohnMarston2018"
-    });
-
-    expect(response).resolves.toBeInstanceOf(Promise);
+    expect(
+      createUser.execute({
+        name: "John Marston",
+        email: "john.marston@gmail.com",
+        password: "JohnMarston2018"
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
