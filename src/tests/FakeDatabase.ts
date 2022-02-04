@@ -6,7 +6,7 @@ import { ICreateUser } from "../interface/user/ICreateUser";
 class FakeUserDatabase implements Omit<IUserRepository, "save"> {
   private users: User[] = [];
 
-  public async create({ name, email }: ICreateUser): Promise<User | Error> {
+  public async create({ name, email }: ICreateUser): Promise<User> {
     const user = new User();
 
     user.id = uuidv4();
