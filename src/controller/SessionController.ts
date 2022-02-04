@@ -7,10 +7,7 @@ export default class SessionController {
 
     const service = new CreateSession();
 
-    const result = await service.execute({email, password});
-    if (result instanceof Error) {
-      return res.status(400).json({err: result.message});
-    }
+    const result = await service.execute({ email, password });
 
     return res.json(result);
   }
