@@ -4,7 +4,8 @@ dotenv.config({
 });
 
 import "reflect-metadata";
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
+import "express-async-errors";
 import cors from "cors";
 const app = express();
 
@@ -26,17 +27,17 @@ generalRoutes(app);
 // load error in requests
 import AppError from "./errors/AppError";
 app.use(
-  (error: Error, request: Request, response: Response) => {
+  (error: Error, req: Request, res: Response, next: NextFunction) => {
     if (error instanceof AppError) {
-      return response.status(error.statusCode).json({
+      return res.status(error.statusCode).json({
         status: "error",
-        message: error.message,
+        message: error.message
       });
     }
 
     console.log(error);
 
-    return response.status(500).json({
+    return res.status(500).json({
       status: "error",
       message: "Internal server error",
     });
