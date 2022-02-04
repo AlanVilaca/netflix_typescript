@@ -5,7 +5,7 @@ import { ICreateUser } from "../../interface/user/ICreateUser";
 import IUserRepository from "../../repositories/IUserRepository";
 import UserRepository from "../../repositories/UserRepository";
 
-export default class CreateUser {
+class CreateUser {
   constructor(private usersRepository: IUserRepository = new UserRepository()) {}
 
   async execute({name, email, password}: ICreateUser): Promise<User> {
@@ -26,3 +26,5 @@ export default class CreateUser {
     return user;
   }
 }
+
+export default CreateUser;
