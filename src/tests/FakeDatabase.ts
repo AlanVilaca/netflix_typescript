@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import IUserRepository from "../repositories/IUserRepository";
 import { ICreateUser } from "../interface/user/ICreateUser";
 
-class FakeUserDatabase implements Omit<IUserRepository, "save"> {
+class FakeUserDatabase implements IUserRepository {
   private users: User[] = [];
 
   public async create({ name, email }: ICreateUser): Promise<User | Error> {

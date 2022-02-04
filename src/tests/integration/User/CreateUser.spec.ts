@@ -30,12 +30,12 @@ describe("Create User", () => {
       password: "JohnMarston2018"
     });
 
-    expect(
-      await createUser.execute({
-        name: "John Marston",
-        email: "john.marston@gmail.com",
-        password: "JohnMarston2018"
-      }),
-    ).resolves.toMatch("Error: Email already exist");
+    const response = await createUser.execute({
+      name: "John Marston",
+      email: "john.marston@gmail.com",
+      password: "JohnMarston2018"
+    });
+
+    expect(response).resolves.toBeInstanceOf(Promise);
   });
 });
