@@ -3,15 +3,16 @@ import { v4 as uuidv4 } from "uuid";
 import IUserRepository from "../repositories/IUserRepository";
 import { ICreateUser } from "../interface/user/ICreateUser";
 
-class FakeUserDatabase implements Omit<IUserRepository, "save"> {
+class FakeUserDatabase implements IUserRepository {
   private users: User[] = [];
 
-  public async create({ name, email }: ICreateUser): Promise<User> {
+  public async create({ name, email, password }: ICreateUser): Promise<User> {
     const user = new User();
 
     user.id = uuidv4();
     user.name = name;
     user.email = email;
+    user.password = password;
 
     this.users.push(user);
 
@@ -19,6 +20,10 @@ class FakeUserDatabase implements Omit<IUserRepository, "save"> {
   }
 
   public async save(user: User): Promise<User> {
+    const findIndex = this.users.findIndex(findUser => findUser.id === user.id);
+
+    this.users[findIndex] = user;
+
     return user;
   }
 

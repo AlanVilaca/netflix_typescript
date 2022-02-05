@@ -1,4 +1,3 @@
-import User from "../../entities/User";
 import bcrypt from "bcryptjs";
 import jwt, { Secret } from "jsonwebtoken";
 import authConfig from "../../config/authConfig";
@@ -12,11 +11,10 @@ interface IUser {
 }
 
 interface IResponse {
-  user: User;
   token: string;
 }
 
-export default class CreateSession {
+class CreateSession {
   constructor(private usersRepository: IUserRepository = new UserRepository()) {}
 
   async execute({ email, password }: IUser): Promise<IResponse> {
@@ -37,8 +35,9 @@ export default class CreateSession {
     });
 
     return {
-      user,
       token
     };
   }
 }
+
+export default CreateSession;
