@@ -2,7 +2,7 @@ import {Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn} from 
 import{ v4 as uuid} from "uuid";
 
 @Entity("profiles")
-export default class User {
+export default class Profile {
   @PrimaryColumn()
   public id: string;
 
