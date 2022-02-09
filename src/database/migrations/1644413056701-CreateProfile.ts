@@ -20,6 +20,16 @@ export class CreateProfile1644413056701 implements MigrationInterface {
             name: "avatar",
             type: "varchar",
             isNullable: true
+          },
+          {
+            name: "createdAt",
+            type: "timestamp",
+            default: "now()"
+          },
+          {
+            name: "updatedAt",
+            type: "timestamp",
+            default: "now()"
           }
         ]
       })
