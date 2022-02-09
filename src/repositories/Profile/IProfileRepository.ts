@@ -1,9 +1,10 @@
+import { ICreateProfile } from "../../interface/profile/ICreateProfile";
+import { IProfile } from "../../interface/profile/IProfile";
 
 interface IProfileRepository {
-  create(profile: ICreateUser): Promise<IUser>;
-  save(profile: IUser): Promise<IUser>;
-  findById(id: string): Promise<IUser | undefined>;
-  findByEmail(email: string): Promise<IUser | undefined>;
+  create(profile: ICreateProfile): Promise<IProfile>;
+  save(profile: IProfile): Promise<IProfile>;
+  findById(id: string): Promise<IProfile | undefined>;
 }
 
 export default IProfileRepository;
