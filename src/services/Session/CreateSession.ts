@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt, { Secret } from "jsonwebtoken";
 import authConfig from "../../config/authConfig";
-import IUserRepository from "../../repositories/IUserRepository";
-import UserRepository from "../../repositories/UserRepository";
+import IUserRepository from "../../repositories/User/IUserRepository";
+import UserRepository from "../../repositories/User/UserRepository";
 import AppError from "../../errors/AppError";
 
 interface IUser {

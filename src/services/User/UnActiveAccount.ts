@@ -1,6 +1,6 @@
 import AppError from "../../errors/AppError";
-import IUserRepository from "../../repositories/IUserRepository";
-import UserRepository from "../../repositories/UserRepository";
+import IUserRepository from "../../repositories/User/IUserRepository";
+import UserRepository from "../../repositories/User/UserRepository";
 
 class UnActiveAccount {
   constructor(private usersRepository: IUserRepository = new UserRepository()) {}

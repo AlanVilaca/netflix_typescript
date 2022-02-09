@@ -2,8 +2,8 @@ import User from "../../entities/User";
 import AppError from "../../errors/AppError";
 import { hashPassword } from "../../helper/user.helper";
 import { ICreateUser } from "../../interface/user/ICreateUser";
-import IUserRepository from "../../repositories/IUserRepository";
-import UserRepository from "../../repositories/UserRepository";
+import IUserRepository from "../../repositories/User/IUserRepository";
+import UserRepository from "../../repositories/User/UserRepository";
 
 class CreateUser {
   constructor(private usersRepository: IUserRepository = new UserRepository()) {}

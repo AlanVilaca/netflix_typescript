@@ -1,6 +1,6 @@
 import User from "../entities/User";
 import { v4 as uuidv4 } from "uuid";
-import IUserRepository from "../repositories/IUserRepository";
+import IUserRepository from "../repositories/User/IUserRepository";
 import { ICreateUser } from "../interface/user/ICreateUser";
 
 class FakeUserDatabase implements IUserRepository {
