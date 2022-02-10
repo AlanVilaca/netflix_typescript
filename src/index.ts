@@ -15,6 +15,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//static routes to load photos
+import uploadConfig from "./config/uploadConfig";
+app.use("/files", express.static(uploadConfig.directory));
+
 // load routes
 import generalRoutes from "./routes/generalRoutes";
 generalRoutes(app);
