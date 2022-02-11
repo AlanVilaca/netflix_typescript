@@ -1,6 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateProfile1644413056701 implements MigrationInterface {
+export class CreateProfile1644605708523 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
@@ -22,6 +22,11 @@ export class CreateProfile1644413056701 implements MigrationInterface {
             isNullable: true
           },
           {
+            name: "userId",
+            type: "uuid",
+            isNullable: false
+          },
+          {
             name: "createdAt",
             type: "timestamp",
             default: "now()"
@@ -34,7 +39,20 @@ export class CreateProfile1644413056701 implements MigrationInterface {
         ]
       })
     );
+
+    await queryRunner.createForeignKey(
+      "profiles",
+      new TableForeignKey({
+        name: "ProfilesUser",
+        referencedTableName: "users",
+        referencedColumnNames: ["id"],
+        columnNames: ["userId"],
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+      })
+    );
   }
+
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable("profiles");
   }
