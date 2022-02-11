@@ -11,6 +11,7 @@ interface IUser {
 }
 
 interface IResponse {
+  user: IUser;
   token: string;
 }
 
@@ -35,6 +36,7 @@ class CreateSession {
     });
 
     return {
+      user,
       token
     };
   }
