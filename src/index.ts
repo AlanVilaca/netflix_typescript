@@ -23,6 +23,9 @@ app.use("/files", express.static(uploadConfig.directory));
 import generalRoutes from "./routes/generalRoutes";
 generalRoutes(app);
 
+//load error in celebrate
+import { errors } from "celebrate";
+app.use(errors());
 
 // load error in requests
 import AppError from "./errors/AppError";
