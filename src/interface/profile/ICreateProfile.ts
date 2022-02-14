@@ -1,4 +1,5 @@
+import { IUser } from "../user/IUser";
+
 export interface ICreateProfile {
-  name: string;
-  avatar: string;
+  user: IUser;
 }
