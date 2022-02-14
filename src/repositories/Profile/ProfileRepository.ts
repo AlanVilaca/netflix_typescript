@@ -1,9 +1,8 @@
 import { getRepository, Repository } from "typeorm";
 import Profile from "../../entities/Profile";
-import { ICreateProfile } from "../../interface/profile/ICreateProfile";
 import { IProfile } from "../../interface/profile/IProfile";
+import { IUser } from "../../interface/user/IUser";
 import IProfileRepository from "./IProfileRepository";
-
 
 class ProfileRepository implements IProfileRepository {
   private ormRepository: Repository<Profile>;
@@ -12,8 +11,12 @@ class ProfileRepository implements IProfileRepository {
     this.ormRepository = getRepository(Profile);
   }
 
-  public async create({ name, avatar }: ICreateProfile): Promise<Profile> {
-    const profile = this.ormRepository.create({ name, avatar });
+  public async create( user: IUser ): Promise<Profile> {
+    const profile = this.ormRepository.create({
+      name: user.name,
+      avatar: "uploads/chay_coracao.jpg",
+      user: user
+    });
     await this.save(profile);
     return profile;
   }
@@ -32,7 +35,19 @@ class ProfileRepository implements IProfileRepository {
     return profile;
   }
 
+  public async findByUser(userId: string): Promise< Profile[] | undefined> {
+    const profiles = await this.ormRepository.find({
+      relations: ["user"],
+      select: ["id", "avatar"],
+      skip: 0,
+      take: 5,
+      where: {
+        user: userId
+      },
+    });
 
+    return profiles;
+  }
 }
 
 export default ProfileRepository;
