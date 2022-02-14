@@ -1,17 +1,15 @@
+import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
-import UpdateAvatarProfile from "../services/Profile/UpdateAvatarProfile";
+import GetProfiles from "../services/Profile/GetProfiles";
 
 class ProfileAvatarController {
-  public async update(req: Request, res: Response) {
-    const updateAvatar = new UpdateAvatarProfile();
+  public async showProfiles(req: Request, res: Response) {
+    const userId = req.user.id;
 
-    if (!req.file?.filename) return res.status(500);
+    const getProfilesSession = new GetProfiles();
+    const profiles = await getProfilesSession.execute(userId);
 
-    const profile = updateAvatar.execute({
-      name: "Alan",
-      avatarFileName: req.file?.filename
-    });
-    return res.json(profile);
+    return res.json(instanceToInstance(profiles));
   }
 }
 
